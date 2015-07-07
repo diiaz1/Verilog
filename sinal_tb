@@ -1,0 +1,43 @@
+# Verilog
+Trabalho que não funciona
+`timescale 1ns/1ns
+
+module sinais_tb();
+
+//DUV
+
+reg A_tb, B_tb, C_tb, D_tb;
+wire L_O_tb, N_S_tb;
+
+integer i;
+reg [0:3] aux;
+
+sinais inst_sinais (.A(A), .B(B), .C(C), .D(D), .L_O(L_O), .N_S(N_S));
+
+//Default
+initial
+	begin
+		aux <= 4'b0000;
+	end
+
+initial
+	begin
+
+		for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
+			begin
+				aux = i;
+				A <= aux[0];
+				B <= aux[1];
+				C <= aux[2];
+				D <= aux[3];
+				#1;					
+			end
+
+
+		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tL_O\tN_S"); 
+		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A, B, C, D, L_O, N_S);
+		
+	end
+
+
+endmodule
