@@ -1,5 +1,3 @@
-# Verilog
-# Trabalho que não funciona
 `timescale 1ns/1ns
 
 module sinais_tb();
@@ -23,7 +21,7 @@ initial
 initial
 	begin
 
-		for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
+for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
 			begin
 				aux = i;
 				A_tb <= aux[0];
@@ -32,12 +30,17 @@ initial
 				D_tb <= aux[3];
 				#1;					
 			end
+	end
 
-
+initial
+	begin
 		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tL_O\tN_S"); 
 		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, L_O_tb, N_S_tb);
 		
 	end
+
+
+endmodule
 
 
 endmodule
