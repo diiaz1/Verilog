@@ -24,13 +24,16 @@ initial
 		for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
 			begin
 				aux = i;
-				
-				#100;
-				A_tb <= aux[0];
-				B_tb <= aux[1];
-				C_tb <= aux[2];
-				D_tb <= aux[3];
 			end
+	end
+	
+initial
+	begin			
+		A_tb <= aux[0];
+		B_tb <= aux[1];
+		C_tb <= aux[2];
+		D_tb <= aux[3];
+		#100;
 	end
 
 initial
