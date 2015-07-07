@@ -1,5 +1,5 @@
 # Verilog
-Trabalho que não funciona
+# Trabalho que não funciona
 `timescale 1ns/1ns
 
 module sinais_tb();
@@ -12,7 +12,7 @@ wire L_O_tb, N_S_tb;
 integer i;
 reg [0:3] aux;
 
-sinais inst_sinais (.A(A), .B(B), .C(C), .D(D), .L_O(L_O), .N_S(N_S));
+sinais inst_sinais (.A(A_tb), .B(B_tb), .C(C_tb), .D(D_tb), .L_O(L_O_tb), .N_S(N_S_tb));
 
 //Default
 initial
@@ -26,10 +26,10 @@ initial
 		for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
 			begin
 				aux = i;
-				A <= aux[0];
-				B <= aux[1];
-				C <= aux[2];
-				D <= aux[3];
+				A_tb <= aux[0];
+				B_tb <= aux[1];
+				C_tb <= aux[2];
+				D_tb <= aux[3];
 				#1;					
 			end
 
