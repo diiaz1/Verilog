@@ -35,7 +35,7 @@ initial
 
 
 		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tL_O\tN_S"); 
-		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A, B, C, D, L_O, N_S);
+		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, L_O_tb, N_S_tb);
 		
 	end
 
