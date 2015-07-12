@@ -1,54 +1,46 @@
-'timescale 1ns/ns
+`timescale 1ns/1ns
 
 module XISTO_tb();
 
-	reg B_tb, CLK_tb;
-	reg tempo;
-	reg [1:6] ESTADO_ATUAL;
-	wire [1:7] LEDS_tb;
+reg B_tb, CLK_tb;
+reg [1:6] ESTADO_ATUAL;
+wire [1:7] LEDS_tb;
+integer tempo;
 
-	XISTO XISTO_INST (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
+XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
 
-	always
-		begin
-			case (LEDS_tb)
-				7'b0110000 : ESTADO_ATUAL = "UM    ";
-				7'b1101101 : ESTADO_ATUAL = "DOIS  ";
-				7'b1111001 : ESTADO_ATUAL = "TRES  ";
-				7'b0110011 : ESTADO_ATUAL = "QUATRO";
-				7'b1011011 : ESTADO_ATUAL = "CINCO ";
-				7'b1011111 : ESTADO_ATUAL = "SEIS  ";
-			endcase
-		end
+always
+	begin
+		case (LEDS_tb)
+			7'b0110000 : ESTADO_ATUAL = "UM";
+			7'b1101101 : ESTADO_ATUAL = "DOIS";
+			7'b1111001 : ESTADO_ATUAL = "TRES";
+			7'b0110011 : ESTADO_ATUAL = "QUATRO";
+			7'b1011011 : ESTADO_ATUAL = "CINCO";
+			7'b1011111 : ESTADO_ATUAL = "SEIS";
+		endcase
+	end
 
-	
-	//default -> o dado está rolando e os LEDS estão apagados
-	initial 
-		begin
-			LEDS = 7'b0;     //turn-off;
-			B_tb = 1;        //dado girando
-			CLK_tb = 1;
-		end
-	
-	//colocando o clock
-	always
-		begin
-			#0.5 CLK_tb = ~ CLK_tb;
-		end
+//Default - O dado está rolando e os LEDS estão apagados
+initial 
+	begin
+		B_tb = 1; //Dado rolando
+		CLK_tb = 1;
+	end
+
+//Colocando o clock:
+always
+	begin
+		#0.5 CLK_tb = ~ CLK_tb;
+	end
 		
 		
-	//sorteando o tempo para parar o dado
-	initial
-		begin
-			tempo = {$random} % 13;
-			#tempo; //delay
-		
-			wait (posedge CLK_tb)
-				B = 0;
+//Sorteando o tempo para parar o dado:
+initial
+	begin
+		tempo = {$random} % 13;
+		#tempo; //delay
+		@ (posedge CLK_tb)	
+				B_tb = 0;
 				$display("Para o tempo %t, o dado mostra o número %s", tempo, ESTADO_ATUAL);
-		end
-	
-endmodule
-
-		
-		
+	end
