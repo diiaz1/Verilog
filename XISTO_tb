@@ -17,4 +17,15 @@ module XISTO_tb();
 			7'b1011011 : ESTADO_ATUAL = "CINCO ";
 			7'b1011111 : ESTADO_ATUAL = "SEIS  ";
 		end
+	endcase
+
+	
+	//default -> o dado está rolando e os LEDS estão apagados
+	initial 
+		begin
+			LEDS = 7'b0110000;
+			B = 1;
+			CLK = 1;
+		end
+		
 		
