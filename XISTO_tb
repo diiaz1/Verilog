@@ -15,7 +15,6 @@ initial
 	begin
 		B_tb = 1; //Dado rolando
 		CLK_tb = 1;
-		i = 0;
 	end
 
 //Colocando o clock:
@@ -31,7 +30,7 @@ initial
 		for (i = 0; i < 10; i = i + 1)
 			begin
 				tempo = {$random} % 13;
-				wait (tempo == $time)
+				wait (tempo == $time);
 				B_tb = 0;
 				$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
 			end
