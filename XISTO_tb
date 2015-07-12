@@ -23,9 +23,9 @@ module XISTO_tb();
 	//default -> o dado está rolando e os LEDS estão apagados
 	initial 
 		begin
-			LEDS = 7'b0110000;
-			B = 1;
-			CLK = 1;
+			LEDS = 7'b0;     //turn-off;
+			B_tb = 1;        //dado girando
+			CLK_tb = 1;
 		end
 		
 		
