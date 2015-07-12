@@ -44,3 +44,4 @@ initial
 				B_tb = 0;
 				$display("Para o tempo %t, o dado mostra o número %s", tempo, ESTADO_ATUAL);
 	end
+endmodule
