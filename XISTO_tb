@@ -27,12 +27,15 @@ always
 //Sorteando o tempo para parar o dado:
 initial
 	begin
+		$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
+		
 		for (i = 0; i < 10; i = i + 1)
 			begin
 				tempo = {$random} % 13;
 				#tempo;
 				B_tb = 0;
-				$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
+				
+				#1;
 				B_tb = 1;
 			end
 		$stop;
