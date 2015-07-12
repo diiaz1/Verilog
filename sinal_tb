@@ -7,44 +7,24 @@ module sinais_tb();
 reg A_tb, B_tb, C_tb, D_tb;
 wire L_O_tb, N_S_tb;
 
-integer i;
-reg [0:3] aux;
+reg [3:0] i;
 
 sinais inst_sinais (.A(A_tb), .B(B_tb), .C(C_tb), .D(D_tb), .L_O(L_O_tb), .N_S(N_S_tb));
 
-//Default
-initial
-	begin
-		aux <= 4'b0000;
-	end
 
-initial
-	begin
-
-		for (i = 4'b0000; i <= 4'b1111; i = i + 4'b0001)
-			begin
-				aux = i;
-			end
-	end
-	
-initial
-	begin			
-		A_tb <= aux[0];
-		B_tb <= aux[1];
-		C_tb <= aux[2];
-		D_tb <= aux[3];
-		#100;
-	end
 
 initial
 	begin
 		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tL_O\tN_S"); 
 		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, L_O_tb, N_S_tb);
-		
+		for (i = 0; i <= 15; i = i + 1)
+			begin
+				A_tb = i[0];
+				B_tb = i[1];
+				C_tb = i[2];
+				D_tb = i[3];
+				#100;			
+			end
+		$stop;	
 	end
-
-
-endmodule
-
-
 endmodule
