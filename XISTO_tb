@@ -9,18 +9,6 @@ integer tempo;
 
 XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
 
-initial
-	begin
-		case (LEDS_tb)
-			7'b0110000 : ESTADO_ATUAL = "UM    ";
-			7'b1101101 : ESTADO_ATUAL = "DOIS  ";
-			7'b1111001 : ESTADO_ATUAL = "TRES  ";
-			7'b0110011 : ESTADO_ATUAL = "QUATRO";
-			7'b1011011 : ESTADO_ATUAL = "CINCO ";
-			7'b1011111 : ESTADO_ATUAL = "SEIS  ";
-		endcase
-	end
-
 //Default - O dado está rolando e os LEDS estão apagados
 initial 
 	begin
@@ -40,9 +28,8 @@ initial
 	begin
 		tempo = {$random} % 13;
 		
-		#tempo
-		@ (posedge CLK_tb)	
+		wait (tempo == $time)
 				B_tb = 0;
-				$display("Para o tempo %t, o dado mostra o número %s", tempo, ESTADO_ATUAL);
+				$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
 	end
 endmodule
