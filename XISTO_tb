@@ -35,5 +35,6 @@ initial
 				B_tb = 0;
 				$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
 			end
+		$stop;
 	end
 endmodule
