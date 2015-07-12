@@ -9,7 +9,7 @@ integer tempo;
 
 XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
 
-always
+initial
 	begin
 		case (LEDS_tb)
 			7'b0110000 : ESTADO_ATUAL = "UM";
