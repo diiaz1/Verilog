@@ -43,7 +43,7 @@ module XISTO_tb();
 			tempo = {$random} % 13;
 			#tempo; //delay
 		
-			@wait (posedge CLK_tb)
+			wait (posedge CLK_tb)
 				B = 0;
 				$display("Para o tempo %t, o dado mostra o número %s", tempo, ESTADO_ATUAL);
 		end
