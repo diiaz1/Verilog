@@ -30,9 +30,10 @@ initial
 		for (i = 0; i < 10; i = i + 1)
 			begin
 				tempo = {$random} % 13;
-				wait (tempo == $time);
+				#tempo;
 				B_tb = 0;
 				$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
+				B_tb = 1;
 			end
 		$stop;
 	end
