@@ -39,9 +39,10 @@ always
 initial
 	begin
 		tempo = {$random} % 13;
-		#tempo; //delay
+		
+		wait ($time == tempo)
 		@ (posedge CLK_tb)	
 				B_tb = 0;
-				$display("Para o tempo %t, o dado mostra o número %s", tempo, ESTADO_ATUAL);
+				$display("Para o tempo %t, o dado mostra o número %s", $time, ESTADO_ATUAL);
 	end
 endmodule
