@@ -3,12 +3,10 @@
 module ECC_tb();
 reg R_W_tb;
 reg [8:1] m_tb;
-reg [4:1] k_tb;
 wire [12:1] x_tb;
 integer i;
-integer indice_tb;
 
-ECC inst_ECC (.R_W(R_W_tb), .m(m_tb), .x(x_tb), .k(k_tb), .indice (indice_tb));
+ECC inst_ECC (.R_W(R_W_tb), .m(m_tb), .x(x_tb));
 
 	//Trabalhando com todas as combinações possíveis -> 256 entradas diferentes 
 	
