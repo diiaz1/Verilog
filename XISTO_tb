@@ -4,10 +4,11 @@ module XISTO_tb();
 
 reg B_tb, CLK_tb;
 reg [1:6] ESTADO_ATUAL;
+reg [0:2] E_A_tb;
 wire [1:7] LEDS_tb;
 integer i;
 
-XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
+XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb), .E_A(E_A_tb));
 
 //Default - O dado está rolando e os LEDS estão apagados
 initial 
@@ -30,7 +31,7 @@ initial
 		$display("\tTempo \tBotão \tLEDS);
 		$monitor("\t%t \t%b \t%b", $time, B_tb, LEDS_tb);
 		
-		for(i = 0; i < 12; i = i + 1)
+		for(i = 1; i < 12; i = i + 1)
 			begin
 				B_tb = ~ B_tb;
 				#2;
