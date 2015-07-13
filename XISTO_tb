@@ -5,7 +5,6 @@ module XISTO_tb();
 reg B_tb, CLK_tb;
 reg [1:6] ESTADO_ATUAL;
 wire [1:7] LEDS_tb;
-reg tempo;
 integer i;
 
 XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
@@ -30,10 +29,9 @@ initial
 	$monitor("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
 		for (i = 0; i < 10; i = i + 1)
 			begin
-				tempo = {$random} % 13;
-				#tempo;
+				#i;
 				B_tb = 0;			
-				#2;	
+				#1;	
 				B_tb = 1;
 			end
 		$stop;
