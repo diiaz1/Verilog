@@ -33,7 +33,7 @@ initial
 		for(i = 0; i < 12; i = i + 1)
 			begin
 				B_tb = ~ B_tb;
-				#100;
+				#1;
 			end
 	end
 
