@@ -1,13 +1,14 @@
-'timescale 1ns/ns
+`timescale 1ns/1ns
 
-module ECC_tb(R_W, m, x);
-  reg R_W_tb, [8:1] m_tb;
-  wire [12:1] x_tb;
-	
-	reg [4:1] k_tb;
-	integer indice_tb;
+module ECC_tb();
+reg R_W_tb;
+reg [8:1] m_tb;
+reg [4:1] k_tb;
+wire [12:1] x_tb;
+integer i;
+integer indice_tb;
 
-  ECC ECC_INST (.R_W(R_W_tb), .m(m_tb), .x(x_tb), .k(k_tb), .indice (indice_tb));
+ECC inst_ECC (.R_W(R_W_tb), .m(m_tb), .x(x_tb), .k(k_tb), .indice (indice_tb));
 
 	//Trabalhando com todas as combinações possíveis -> 256 entradas diferentes 
 	
@@ -21,13 +22,11 @@ module ECC_tb(R_W, m, x);
 	    
 	    for (i = 0; i < 256; i = i + 1)
 	      begin
-	        m = i;
-	        #100
+	        m_tb = i;
+	        #100;
 	      end
 	   
 	   $stop;
 	   end
 
 endmodule
-
-
