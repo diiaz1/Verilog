@@ -12,7 +12,7 @@ XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb));
 //Default - O dado está rolando e os LEDS estão apagados
 initial 
 	begin
-		B_tb = 1; //Dado rolando
+		B_tb = 0; //LEDS acesos
 		CLK_tb = 1;
 	end
 
@@ -33,7 +33,7 @@ initial
 		for(i = 0; i < 12; i = i + 1)
 			begin
 				B_tb = ~ B_tb;
-				#1;
+				#2;
 			end
 	end
 
