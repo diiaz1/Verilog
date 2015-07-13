@@ -27,7 +27,7 @@ always
 //Sorteando o tempo para parar o dado:
 initial
 	begin
-		$display("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
+		$monitor("Para o tempo %t, os LEDS mostram %b", $time, LEDS_tb);
 		
 		for (i = 0; i < 10; i = i + 1)
 			begin
