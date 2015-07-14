@@ -1,6 +1,20 @@
 module maquina_refrigerante_tb ();
 
 reg Real_tb, desiste_tb, clk_tb, rst_tb;
+reg [10:1] state_string;
 wire troco_tb, refri_tb;
 
-maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb) .clk(clk_tb), .LEDS(LEDS_tb), .E_A_L(E_A_L_tb));
+maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb), .clk(clk_tb),
+                                                .rst(rst_tb), .troco(troco_tb), .refri(refri_tb));
+                                                
+
+always
+  begin
+    case (e_a)
+      início :     state_string = "Início    "
+      umreal :     state_string = "Um real   ";
+      doisreais :  state_string = "Dois reais"; 
+    endcase
+  end
+
+endmodule
