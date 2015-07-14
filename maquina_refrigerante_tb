@@ -1,0 +1,6 @@
+module maquina_refrigerante_tb ();
+
+reg Real_tb, desiste_tb, clk_tb, rst_tb;
+wire troco_tb, refri_tb;
+
+maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb) .clk(clk_tb), .LEDS(LEDS_tb), .E_A_L(E_A_L_tb));
