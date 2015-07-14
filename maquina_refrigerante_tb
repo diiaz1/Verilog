@@ -1,20 +1,38 @@
+`timescale 1ns/1ns;
+
 module maquina_refrigerante_tb ();
 
 reg Real_tb, desiste_tb, clk_tb, rst_tb;
 reg [10:1] state_string;
+integer i;
 wire troco_tb, refri_tb;
 
 maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb), .clk(clk_tb),
                                                 .rst(rst_tb), .troco(troco_tb), .refri(refri_tb));
-                                                
+
+initial
+  begin
+    Real_tb = 0;
+    desiste_tb = 0;
+    rst_tb = 0;
+    clk_tb = 1;
+  end
 
 always
   begin
-    case (e_a)
-      início :     state_string = "Início    "
-      umreal :     state_string = "Um real   ";
-      doisreais :  state_string = "Dois reais"; 
-    endcase
+    #0.5 clk =~ clk;
+  end
+  
+initial
+  begin
+    $display("1º Caso -> A máquina fornece o refrigerante);
+    $monitor("\t%b \t%b \t%b \t%b", Real_tb, desiste_tb, troco_tb, refri_tb);
+    
+    for (i=0; i < 3; i = i + 1)
+      begin
+        real_tb = real_tb + 1;
+      end
   end
 
 endmodule
+  
