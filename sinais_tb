@@ -1,0 +1,19 @@
+`timescale 1ns/1ns
+
+module sinais_tb();
+
+//DUV
+
+reg A_tb, B_tb, C_tb, D_tb;
+wire L_O_tb, N_S_tb;
+
+reg [4:0] i;
+
+sinais inst_sinais (.A(A_tb), .B(B_tb), .C(C_tb), .D(D_tb), .L_O(L_O_tb), .N_S(N_S_tb));
+
+initial
+	begin
+		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tN_S\tL_O"); 
+		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, N_S_tb, L_O_tb);
+		for (i = 0; i < 16; i = i + 1)
+			
