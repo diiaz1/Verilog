@@ -16,4 +16,14 @@ initial
 		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tN_S\tL_O"); 
 		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, N_S_tb, L_O_tb);
 		for (i = 0; i < 16; i = i + 1)
-			
+			begin
+				A_tb = i[0];
+				B_tb = i[1];
+				C_tb = i[2];
+				D_tb = i[3];
+				#10;			
+			end
+		$stop;
+	end
+
+endmodule
