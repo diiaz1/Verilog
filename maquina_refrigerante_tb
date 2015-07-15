@@ -9,7 +9,6 @@ wire troco_tb, refri_tb;
 
 maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb), .clk(clk_tb),
                                                 .rst(rst_tb), .troco(troco_tb), .refri(refri_tb));
-
 initial
   begin
     Real_tb = 0;
@@ -19,20 +18,23 @@ initial
   end
 
 always
-  begin
-    #0.5 clk =~ clk;
-  end
+	begin
+ 		#0.5 clk_tb <= ~ clk_tb;
+  	end
   
 initial
-  begin
-    $display("1º Caso -> A máquina fornece o refrigerante);
-    $monitor("\t%b \t%b \t%b \t%b", Real_tb, desiste_tb, troco_tb, refri_tb);
+	begin
+		$display("1 caso: A maquina fornece o refrigerante");
+		$display("\tTempo \tReset \tReal \tDesiste \tTroco \tRefri");
+		$monitor("\t%t \t%b \t%b \t%b \t%b \t%b", $time, rst_tb, Real_tb, desiste_tb, troco_tb, refri_tb);
+
+		#1 rst_tb = 0;
     
-    for (i=0; i < 3; i = i + 1)
-      begin
-        real_tb = real_tb + 1;
-      end
-  end
+		for (i=0; i < 770; i = i + 1)
+			begin
+				#2;
+        			Real_tb = ~ Real_tb;
+			end
+	end
 
 endmodule
-  
