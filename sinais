@@ -1,0 +1,29 @@
+module sinais ( A, B, C, D, N_S, L_O );
+	
+	input A, B, C, D;
+	output reg L_O, N_S; //L_O => via preferencial, N_S => via secundária 
+	
+		always @ ( A || B || C || D )
+			begin
+				N_S = 0; //default
+				L_O = 0; //default
+			
+				case ( {A, B, C, D} )
+					4'b0011 : L_O = 1; //o sinal L_O estará verde sempre que existerem veículos em ambas as vias de direção C e D
+					4'b0111 : L_O = 1; 
+					4'b1011 : L_O = 1; 
+					4'b0011 : L_O = 1; 
+					4'b1111 : L_O = 1; 
+					4'b0010 : L_O = 1; //o sinal L_O estará verde sempre que existirem veículos ou em C ou em D, estando A e B vazias
+					4'b0001 : L_O = 1;
+					4'b0 : L_O = 1; //o sinal L_O estará verde quando nenhum veículo tiver sido detectado pelos sensores
+					
+					4'b1100 : N_S = 1; //o sinal N_S estará verde sempre que existirem veículos em A e em B, estando C e D vazias
+					4'b1000 : N_S = 1; //o sinal N_S estará verde quando ou A ou B estiverem ocupadas, estando C e D vazias
+					4'b0100 : N_S = 1;
+					
+				endcase
+				
+			end
+			
+	endmodule
