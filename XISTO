@@ -1,0 +1,68 @@
+module XISTO ( B, CLK, LEDS, rst); //Dado eletrônico
+
+	input B, CLK, rst;
+	output reg [1:7] LEDS; //abcdefg
+	reg [0:2] E_A, E_F;
+	parameter UM = 1, DOIS = 2, TRES = 3, QUATRO = 4, CINCO = 5, SEIS = 6;
+	
+	/* Se B = 1 => estado muda, LEDS apagados
+		Se B = 0 => estado não muda, LEDS acesos */
+	
+	always @ ( posedge CLK ) //registrador de estado
+		begin
+			if (rst)
+				begin
+					E_A = UM;
+				end
+			else
+				begin
+					if (B)
+						begin
+							E_A <= E_F;
+						end
+				end
+		end
+
+	always @ (*) //decodificador de próximo estado - abcdefg
+		begin		
+			if (B)
+				begin
+					case(E_A)
+						UM: E_F = DOIS;
+						DOIS: E_F = TRES;
+						TRES: E_F = QUATRO;
+						QUATRO: E_F = CINCO;
+						CINCO: E_F = SEIS;
+						SEIS: E_F = UM;
+					endcase
+				end
+			
+			else
+				begin
+				end
+			
+		end
+
+	always @ (*) //decodificador de saída - abcdefg
+		begin
+			if (B)
+				begin
+					LEDS = 7'b0000000;
+				end
+			
+			else
+				begin
+					case( E_A ) //LEDS = abcdefg
+						UM : LEDS = 7'b0110000;
+						DOIS : LEDS = 7'b1101101;
+						TRES : LEDS = 7'b1111001;
+						QUATRO : LEDS = 7'b0110011;
+						CINCO : LEDS = 7'b1011011;
+						SEIS : LEDS = 7'b1011111;
+						default : LEDS = 7'b1111111; //Oito - como é um dado, indica ERRO!
+					endcase
+				end
+		
+		end
+		
+endmodule
