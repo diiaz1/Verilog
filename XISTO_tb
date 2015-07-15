@@ -2,40 +2,55 @@
 
 module XISTO_tb();
 
-reg B_tb, CLK_tb;
+reg B_tb, CLK_tb, rst_tb;
 reg [1:6] ESTADO_ATUAL;
 reg [0:2] E_A_tb;
 wire [1:7] LEDS_tb;
 integer i;
+integer valor;
 
-XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb), .E_A(E_A_tb));
+XISTO Inst_XISTO (.B(B_tb), .CLK(CLK_tb), .LEDS(LEDS_tb), .rst(rst_tb));
 
 //Default - O dado está rolando e os LEDS estão apagados
 initial 
 	begin
-		B_tb = 0; //LEDS acesos
+		B_tb = 1; //LEDs apagados
 		CLK_tb = 1;
+		rst_tb = 1; //Colocando no estado inicial
+		#8	rst_tb = 0;
+			B_tb = 0;
 	end
 
 //Colocando o clock:
 always
 	begin
-		#0.5 CLK_tb = ~ CLK_tb;
+		#1 CLK_tb = ~ CLK_tb;
 	end
-		
 		
 //imprimindo todas as possibilidades de saída -> 12
 initial
 	begin
+		#8;
 		$display("Dado eletrônico\n");
-		$display("\tTempo \tBotão \tLEDS);
-		$monitor("\t%t \t%b \t%b", $time, B_tb, LEDS_tb);
+		$display("Valor = 0 significa que não há valor sendo mostra no display!");
+		$display("\tTempo Botão LEDS \t           Valor");
+		$monitor("%d %b \t   %b %d", i, B_tb, LEDS_tb, valor);
 		
-		for(i = 1; i < 12; i = i + 1)
+		for(i = 1; i < 16; i = i + 1)
 			begin
-				B_tb = ~ B_tb;
-				#2;
+				case ( LEDS_tb ) //Valor do dado para leitura
+				7'b0000000:  valor = 0;
+				7'b0110000 : valor = 1;
+				7'b1101101 : valor = 2;
+				7'b1111001 : valor = 3;
+				7'b0110011 : valor = 4;
+				7'b1011011 : valor = 5;
+				7'b1011111 : valor = 6;
+				endcase	
+			#2;
+			B_tb = ~ B_tb;
 			end
+			$stop;
 	end
 
 endmodule
