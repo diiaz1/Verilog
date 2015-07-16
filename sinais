@@ -1,31 +1,29 @@
-module sinais ( A, B, C, D, N_S, L_O );
-	
-	input A, B, C, D;
-	output reg L_O, N_S; //L_O => via preferencial, N_S => via secundária 
-	
-		always @ ( A || B || C || D )
+`timescale 1ns/1ns
+
+module sinais_tb();
+
+//DUV
+
+reg A_tb, B_tb, C_tb, D_tb;
+wire L_O_tb, N_S_tb;
+
+reg [4:0] i;
+
+sinais inst_sinais (.A(A_tb), .B(B_tb), .C(C_tb), .D(D_tb), .L_O(L_O_tb), .N_S(N_S_tb));
+
+initial
+	begin
+		$display ("\t \t    Tempo  \tA     \tB     \tC     \tD \tN_S\tL_O"); 
+		$monitor ("%t     \t%b     \t%b     \t%b     \t%b     \t%b      \t%b", $time, A_tb, B_tb, C_tb, D_tb, N_S_tb, L_O_tb);
+		for (i = 0; i < 16; i = i + 1)
 			begin
-			
-				case ({ A, B, C, D })
-					4'b0 : {L_O, N_S} = 2'b10;
-					4'b0001 : {L_O, N_S} = 2'b10;
-					4'b0010 : {L_O, N_S} = 2'b10;
-					4'b0011 : {L_O, N_S} = 2'b10;
-					4'b0100 : {L_O, N_S} = 2'b01;
-					4'b0101 : {L_O, N_S} = 2'b00;
-					4'b0110 : {L_O, N_S} = 2'b00;
-					4'b0111 : {L_O, N_S} = 2'b10;
-					4'b1000 : {L_O, N_S} = 2'b01;
-					4'b1001 : {L_O, N_S} = 2'b00;
-					4'b1010 : {L_O, N_S} = 2'b00;
-					4'b1011 : {L_O, N_S} = 2'b10;
-					4'b1100 : {L_O, N_S} = 2'b01;
-					4'b1101 : {L_O, N_S} = 2'b00;
-					4'b1110 : {L_O, N_S} = 2'b00; 
-					4'b1111 : {L_O, N_S} = 2'b10;
-					
-				endcase
-				
+				A_tb = i[3];
+				B_tb = i[2];
+				C_tb = i[1];
+				D_tb = i[0];
+				#10;			
 			end
-			
-	endmodule
+		$stop;
+	end
+
+endmodule
