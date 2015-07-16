@@ -5,6 +5,7 @@ module maquina_refrigerante_tb ();
 reg Real_tb, desiste_tb, clk_tb, rst_tb;
 reg [10:1] state_string;
 integer i;
+integer quantidade_real;
 wire troco_tb, refri_tb;
 
 maquina_refrigerante Inst_maquina_refrigerante (.Real(Real_tb), .desiste(desiste_tb), .clk(clk_tb),
@@ -19,6 +20,19 @@ initial
     #50 rst_tb = 0;
     Real_tb = 0;
   end
+  
+always
+	begin
+		if (Real_tb)
+			begin
+				quantidade_real = quantidade_real + 1;
+			end
+		if (desiste_tb || Real_tb == 3)
+			begin
+				quantidade_real = 0;
+			end
+	end
+				
 
 always
 	begin
