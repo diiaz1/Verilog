@@ -13,23 +13,24 @@ initial
   begin
     Real_tb = 0;
     desiste_tb = 0;
-    rst_tb = 0;
     clk_tb = 1;
+    rst_tb = 1;
+    
+    #50 rst_tb = 0;
+    Real_tb = 1;
   end
 
 always
 	begin
- 		#0.5 clk_tb <= ~ clk_tb;
+ 		#1 clk_tb <= ~ clk_tb;
   	end
   
 initial
 	begin
 		$display("1 caso: A maquina fornece o refrigerante");
-		$display("\tTempo \tReset \tReal \tDesiste \tTroco \tRefri");
-		$monitor("\t%t \t%b \t%b \t%b \t%b \t%b", $time, rst_tb, Real_tb, desiste_tb, troco_tb, refri_tb);
+		$display("\tReset \tTempo \tReal \tDesiste \tTroco \tRefri");
+		$monitor("\t%b \t%t \t%b \t%b \t%b \t%b", rst_tb, $time, Real_tb, desiste_tb, troco_tb, refri_tb);
 
-		#1 rst_tb = 0;
-    
 		for (i=0; i < 770; i = i + 1)
 			begin
 				#2;
