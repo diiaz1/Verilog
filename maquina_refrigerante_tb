@@ -27,15 +27,17 @@ always
   
 initial
 	begin
+	#50;
 		$display("1 caso: A maquina fornece o refrigerante");
 		$display("\tReset \tTempo \tReal \tDesiste \tTroco \tRefri");
 		$monitor("\t%b \t%t \t%b \t%b \t%b \t%b", rst_tb, $time, Real_tb, desiste_tb, troco_tb, refri_tb);
 
-		for (i=0; i < 770; i = i + 1)
+		for (i =0; i < 20; i = i + 1)
 			begin
 				#2;
         			Real_tb = ~ Real_tb;
 			end
+		$stop;
 	end
 
 endmodule
