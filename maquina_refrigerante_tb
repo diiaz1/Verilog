@@ -17,7 +17,7 @@ initial
     rst_tb = 1;
     
     #50 rst_tb = 0;
-    Real_tb = 1;
+    Real_tb = 0;
   end
 
 always
