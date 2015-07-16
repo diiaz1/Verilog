@@ -28,9 +28,13 @@ always
 			begin
 				quantidade_real = quantidade_real + 1;
 			end
-		if (desiste_tb || quantidade_real == 4)
+		if (quantidade_real == 4)
 			begin
 				quantidade_real = 1;
+			end
+		if(desiste_tb)
+			begin
+				quantidade_real = 0;
 			end
 	end
 				
