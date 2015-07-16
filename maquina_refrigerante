@@ -16,7 +16,7 @@ module maquina_refrigerante ( Real, desiste, clk, rst, troco, refri );
 				end
 		end
 		
-	always @ ( Real || desiste || e_a ) // Decodificador de PrÃ³ximo Estado
+	always @ (*) // Decodificador de PrÃ³ximo Estado
 		begin
 			e_f = inicio; // Default
 			
@@ -47,7 +47,7 @@ module maquina_refrigerante ( Real, desiste, clk, rst, troco, refri );
 			endcase
 		end
 		
-	always @ (Real || desiste || e_a )	// Decodificador de SaÃ­da
+	always @ (*)	// Decodificador de SaÃ­da
 		begin
 			troco = 0;
 			refri = 0;
