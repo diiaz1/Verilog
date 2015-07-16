@@ -1,0 +1,75 @@
+module maquina_refrigerante ( Real, desiste, clk, rst, troco, refri );
+	input Real, desiste, clk, rst;
+	output reg troco, refri;
+	parameter inicio = 0, umreal = 1, doisreais = 2;
+	reg[1:0] e_a, e_f;
+	
+	always @ ( posedge clk ) // Registrador de estado
+		begin
+			if (rst)
+				begin
+					e_a <= inicio;
+				end
+			else
+				begin
+					e_a <= e_f;
+				end
+		end
+		
+	always @ (*) // Decodificador de PrÃ³ximo Estado
+		begin
+		
+			case (e_a)
+				inicio: case ({Real, desiste})
+					2'b00 : e_f = inicio;  
+					2'b01 : e_f = inicio;  
+					2'b11 : e_f = umreal; 
+					2'b10 : e_f = umreal;
+					endcase 
+				
+				umreal: case ({Real, desiste})
+					2'b00 : e_f = umreal;  
+					2'b01 : e_f = inicio;  
+					2'b11 : e_f = doisreais; 
+					2'b10 : e_f = doisreais;
+					endcase 
+					
+				doisreais: case ({Real, desiste})
+					2'b00 : e_f = doisreais;  
+					2'b01 : e_f = inicio;  
+					2'b11 : e_f = inicio; 
+					2'b10 : e_f = inicio;
+					endcase 
+					
+			endcase
+		end
+		
+	always @ (*)	// Decodificador de SaÃ­da
+		begin
+		
+			case (e_a)
+				inicio: case ({Real,desiste})
+					2'b00 : {troco, refri} = 2'b00;    
+					2'b01 : {troco, refri} = 2'b00; 
+					2'b11 : {troco, refri} = 2'b00;
+					2'b10 : {troco, refri} = 2'b00;
+					endcase
+				
+				umreal: case ({Real,desiste})
+					2'b00 : {troco, refri} = 2'b00;  
+					2'b01 : {troco, refri} = 2'b10; 
+					2'b11 : {troco, refri} = 2'b00;
+					2'b10 : {troco, refri} = 2'b00;
+					endcase
+					
+				doisreais: case ({Real,desiste})
+					2'b00 : {troco, refri} = 2'b00;  
+					2'b01 : {troco, refri} = 2'b10; 
+					2'b11 : {troco, refri} = 2'b01;
+					2'b10 : {troco, refri} = 2'b01;
+					endcase
+				
+			endcase
+		end
+		
+endmodule
