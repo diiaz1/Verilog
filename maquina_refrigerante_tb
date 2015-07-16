@@ -28,7 +28,7 @@ always
 			begin
 				quantidade_real = quantidade_real + 1;
 			end
-		if (desiste_tb || Real_tb == 4)
+		if (desiste_tb || quantidade_real == 4)
 			begin
 				quantidade_real = 1;
 			end
@@ -44,8 +44,8 @@ initial
 	begin
 	#50;
 		$display("1 caso: A maquina fornece o refrigerante");
-		$display("\tReset \tTempo \tReal \tDesiste \tTroco \tRefri");
-		$monitor("\t%b \t%t \t%b \t%b \t%b \t%b", rst_tb, $time, Real_tb, desiste_tb, troco_tb, refri_tb);
+		$display("\tReset \tTempo \tReais \tBotãoReal \tDesiste \tTroco \tRefri");
+		$monitor("\t%b \t%t \t%b \t%b \t%b \t%b \t%b", rst_tb, $time, quantidade_real, Real_tb, desiste_tb, troco_tb, refri_tb);
 
 		for (i =0; i < 20; i = i + 1)
 			begin
