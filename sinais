@@ -7,18 +7,22 @@ module sinais ( A, B, C, D, N_S, L_O );
 			begin
 			
 				case ({ A, B, C, D })
-					4'b0011 : {L_O, N_S} = 2'b10; //o sinal L_O estará verde sempre que existerem veículos em ambas as vias de direção C e D
-					4'b0111 : {L_O, N_S} = 2'b10; 
-					4'b1011 : {L_O, N_S} = 2'b10; 
-					4'b0011 : {L_O, N_S} = 2'b10; 
-					4'b1111 : {L_O, N_S} = 2'b10; 
-					4'b0010 : {L_O, N_S} = 2'b10; //o sinal L_O estará verde sempre que existirem veículos ou em C ou em D, estando A e B vazias
+					4'b0 : {L_O, N_S} = 2'b10;
 					4'b0001 : {L_O, N_S} = 2'b10;
-					4'b0 : {L_O, N_S} = 2'b10; //o sinal L_O estará verde quando nenhum veículo tiver sido detectado pelos sensores
-					
-					4'b1100 : {L_O, N_S} = 2'b01;; //o sinal N_S estará verde sempre que existirem veículos em A e em B, estando C e D vazias
-					4'b1000 : {L_O, N_S} = 2'b01; //o sinal N_S estará verde quando ou A ou B estiverem ocupadas, estando C e D vazias
+					4'b0010 : {L_O, N_S} = 2'b10;
+					4'b0011 : {L_O, N_S} = 2'b10;
 					4'b0100 : {L_O, N_S} = 2'b01;
+					4'b0101 : {L_O, N_S} = 2'b00;
+					4'b0110 : {L_O, N_S} = 2'b00;
+					4'b0111 : {L_O, N_S} = 2'b10;
+					4'b1000 : {L_O, N_S} = 2'b01;
+					4'b1001 : {L_O, N_S} = 2'b00;
+					4'b1010 : {L_O, N_S} = 2'b00;
+					4'b1011 : {L_O, N_S} = 2'b10;
+					4'b1100 : {L_O, N_S} = 2'b01;
+					4'b1101 : {L_O, N_S} = 2'b00;
+					4'b1110 : {L_O, N_S} = 2'b00; 
+					4'b1111 : {L_O, N_S} = 2'b10;
 					
 				endcase
 				
