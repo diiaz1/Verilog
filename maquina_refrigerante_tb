@@ -29,7 +29,7 @@ always
   
 initial
 	begin
-	#50;
+		#50;
 		$display("1 caso: A maquina fornece o refrigerante");
 		$display("\tReset \tTempo \tReais \tBotãoReal \tDesiste \tTroco \tRefri");
 		$monitor("\t%b \t%t \t%d \t%b \t%b \t%b \t%b", rst_tb, $time, quantidade_real, Real_tb, desiste_tb, troco_tb, refri_tb);
@@ -39,26 +39,22 @@ initial
 				#2;
         			Real_tb = ~ Real_tb;
 //
-		if (Real_tb)
-			begin
-				quantidade_real = quantidade_real + 1;
+				if (Real_tb)
+					begin
+						quantidade_real = quantidade_real + 1;
+					end
+				if (quantidade_real == 4)
+					begin
+						quantidade_real = 1;
+					end
+				if(desiste_tb)
+					begin
+						quantidade_real = 0;
+					end
 			end
-		if (quantidade_real == 4)
-			begin
-				quantidade_real = 1;
-			end
-		if(desiste_tb)
-			begin
-				quantidade_real = 0;
-			end
-		else	
-			begin
-			end
-	end
 				
 
 //
-			end
-		$stop;
+	end
 
 endmodule
