@@ -19,6 +19,7 @@ initial
     
     #50 rst_tb = 0;
     Real_tb = 0;
+    quantidade_real = 0;
   end
   
 always
@@ -27,9 +28,9 @@ always
 			begin
 				quantidade_real = quantidade_real + 1;
 			end
-		if (desiste_tb || Real_tb == 3)
+		if (desiste_tb || Real_tb == 4)
 			begin
-				quantidade_real = 0;
+				quantidade_real = 1;
 			end
 	end
 				
