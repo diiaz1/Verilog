@@ -4,7 +4,7 @@ module maquina_refrigerante_tb ();
 
 reg Real_tb, desiste_tb, clk_tb, rst_tb;
 reg [10:1] state_string;
-integer i;
+integer i, j;
 integer quantidade_real;
 wire troco_tb, refri_tb;
 
@@ -16,10 +16,10 @@ initial
     desiste_tb = 0;
     clk_tb = 1;
     rst_tb = 1;
+    quantidade_real = 0;
     
     #50 rst_tb = 0;
-    Real_tb = 0;
-    quantidade_real = 0;
+
   end
   
 always
@@ -29,32 +29,95 @@ always
   
 initial
 	begin
+		$display ("Iniciando a simulação.\n");
 		#50;
-		$display("1 caso: A maquina fornece o refrigerante");
-		$display("\tReset \tTempo \tReais \tBotãoReal \tDesiste \tTroco \tRefri");
-		$monitor("\t%b \t%t \t%d \t%b \t%b \t%b \t%b", rst_tb, $time, quantidade_real, Real_tb, desiste_tb, troco_tb, refri_tb);
+		$display("\tCaso 1 : A maquina fornece o refrigerante\n");
+		$display("\tReset \t\t   Tempo \t\tReais BotaoReal Desiste Troco Refri");
+		$monitor("\t%b %t %d \t\t\t\t\t  %b \t   %b \t  %b \t%b", rst_tb, $time, quantidade_real, Real_tb, desiste_tb, troco_tb, refri_tb);
 
-		for (i =0; i < 20; i = i + 1)
+		for (i =0; i < 12; i = i + 1)
 			begin
 				#2;
         			Real_tb = ~ Real_tb;
-//
+
 				if (Real_tb)
 					begin
 						quantidade_real = quantidade_real + 1;
 					end
-				if (quantidade_real == 4)
+				if (quantidade_real == 3 & Real_tb ==0)
 					begin
-						quantidade_real = 1;
+						quantidade_real = 0;
 					end
-				if(desiste_tb)
+				if(desiste_tb & Real_tb == 0)
 					begin
 						quantidade_real = 0;
 					end
 			end
-				
 
-//
+	$display("\n\n\tCaso 2 : A maquina fornece o refrigerante mesmo que o botaoo desiste seja apertado simultaneamente ao botao real\n");
+	$display("\tReset \t\t   Tempo \t\tReais BotaoReal Desiste Troco Refri");
+		for (i =0; i < 12; i = i + 1)
+			begin
+				#2;
+        			Real_tb = ~ Real_tb;
+				
+				if (Real_tb)
+					begin
+						quantidade_real = quantidade_real + 1;
+						desiste_tb = 1;
+					end
+				if (desiste_tb & Real_tb == 0)
+					begin
+						desiste_tb = 0;
+					end
+				if (quantidade_real == 3 & Real_tb ==0)
+					begin
+						quantidade_real = 0;
+					end
+
+
+
+			end
+
+	$display("\n\n\tCaso 3 : A maquina testa todas as possibilidades de desistência\n");
+	$display("\tReset \t\t   Tempo \t\tReais BotaoReal Desiste Troco Refri");
+	
+	for (i = 0; i < 3; i = i + 1)
+		begin
+
+			while (quantidade_real != i)
+				begin
+					#2 desiste_tb = 0;
+					Real_tb = 1;
+					
+
+					if (Real_tb)
+						begin
+							quantidade_real = quantidade_real + 1;
+							desiste_tb = 1;
+						end
+					if (desiste_tb & Real_tb == 0)
+						begin
+							desiste_tb = 0;
+						end
+					if (quantidade_real == 3 & Real_tb ==0)
+						begin
+							quantidade_real = 0;
+						end
+				end
+
+			if (quantidade_real == i)
+				begin
+					#2 Real_tb = 0;
+					desiste_tb = 1;
+					quantidade_real = 0;
+					#2 desiste_tb = 0;
+
+				end
+
+		end
+		$display ("\nFim da Simulação.");
+		$stop;
 	end
 
 endmodule
